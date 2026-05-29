@@ -9,7 +9,7 @@ if [ ! -f "$SHARED_LIB_DIR/common.sh" ]; then
 fi
 
 bootstrap_pg_node_shared_libs() {
-    local fetch_repo="PasarGuard/scripts"
+    local fetch_repo="EugeneTomato/scripts"
     local bootstrap_dir="/usr/local/lib/pasarguard-scripts/lib"
     local tmp_dir=""
     local shared_lib=""
@@ -139,7 +139,7 @@ ENV_FILE="$APP_DIR/.env"
 SSL_CERT_FILE="$DATA_DIR/certs/ssl_cert.pem"
 SSL_KEY_FILE="$DATA_DIR/certs/ssl_key.pem"
 LAST_XRAY_CORES=5
-FETCH_REPO="PasarGuard/scripts"
+FETCH_REPO="EugeneTomato/scripts"
 NODE_SERVICE_REPO="PasarGuard/node-serviced"
 NODE_SERVICE_RELEASE_API="https://api.github.com/repos/${NODE_SERVICE_REPO}/releases/latest"
 NODE_SERVICE_BINARY_NAME="node-serviced"
@@ -274,14 +274,14 @@ install_node_service_script() {
         colorized_echo red "Failed to query latest node-serviced release from $NODE_SERVICE_RELEASE_API"
         exit 1
     fi
-    latest_tag=$(echo "$release_json" | jq -r '.tag_name // empty')
-    latest_version="${latest_tag#v}"
+    latest_tag="v0.0.1" # $(echo "$release_json" | jq -r '.tag_name // empty')
+    latest_version="${latest_tag#v}" # 0.0.1
     if [ -z "$latest_version" ] || [ "$latest_version" = "null" ]; then
         colorized_echo red "Failed to resolve latest node-serviced version from $NODE_SERVICE_RELEASE_API"
         exit 1
     fi
-    asset_name="${NODE_SERVICE_BINARY_NAME}_${latest_version}_${platform}.tar.gz"
-    asset_url=$(echo "$release_json" | jq -r --arg name "$asset_name" '.assets[]? | select(.name==$name) | .browser_download_url' | head -n 1)
+    asset_name="${NODE_SERVICE_BINARY_NAME}_${latest_version}_${platform}.tar.gz" # node-serviced_0.0.1_Linux_x86_64.tar.gz с примером ядра
+    asset_url=$(echo "$release_json" | jq -r --arg name "$asset_name" '.assets[]? | select(.name==$name) | .browser_download_url' | head -n 1) # https://github.com/PasarGuard/node-serviced/releases/download/v0.0.1/node-serviced_0.0.1_Linux_x86_64.tar.gz
     if [ -z "$asset_url" ] || [ "$asset_url" = "null" ]; then
         colorized_echo red "node-serviced asset not found for platform $platform (expected $asset_name)"
         exit 1
@@ -574,8 +574,8 @@ read_and_save_file() {
 }
 install_node() {
     local node_version=$1
-    FILES_URL_PREFIX="https://raw.githubusercontent.com/PasarGuard/node/main"
-    COMPOSE_FILES_URL_PREFIX="https://raw.githubusercontent.com/PasarGuard/scripts/main/docker-compose"
+    FILES_URL_PREFIX="https://raw.githubusercontent.com/EugeneTomato/node/main"
+    COMPOSE_FILES_URL_PREFIX="https://raw.githubusercontent.com/EugeneTomato/scripts/main/docker-compose"
     colorized_echo blue "Creating directories..."
     colorized_echo cyan "  Command: mkdir -p $DATA_DIR $DATA_DIR/certs $APP_DIR"
     mkdir -p "$DATA_DIR"

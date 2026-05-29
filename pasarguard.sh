@@ -9,7 +9,7 @@ if [ ! -f "$SHARED_LIB_DIR/common.sh" ]; then
 fi
 
 bootstrap_pasarguard_shared_libs() {
-    local fetch_repo="PasarGuard/scripts"
+    local fetch_repo="EugeneTomato/scripts"
     local bootstrap_dir="/usr/local/lib/pasarguard-scripts/lib"
     local tmp_dir=""
     local shared_lib=""
@@ -884,7 +884,7 @@ verify_and_start_container() {
 }
 
 install_pasarguard_script() {
-    FETCH_REPO="PasarGuard/scripts"
+    FETCH_REPO="EugeneTomato/scripts"
     colorized_echo blue "Installing pasarguard script"
     install_shared_libs_from_repo "$FETCH_REPO" common.sh system.sh docker.sh github.sh env.sh pasarguard-backup.sh pasarguard-restore.sh
     github_install_script_from_repo "$FETCH_REPO" "pasarguard.sh" "pasarguard"
@@ -933,8 +933,8 @@ install_pasarguard() {
     local major_version=$2
     local database_type=$3
 
-    FILES_URL_PREFIX="https://raw.githubusercontent.com/pasarguard/panel"
-    COMPOSE_FILES_URL_PREFIX="https://raw.githubusercontent.com/pasarguard/scripts/main/docker-compose"
+    FILES_URL_PREFIX="https://raw.githubusercontent.com/eugenetomato/panel"
+    COMPOSE_FILES_URL_PREFIX="https://raw.githubusercontent.com/eugenetomato/scripts/main/docker-compose"
 
     mkdir -p "$DATA_DIR"
     mkdir -p "$APP_DIR"
@@ -1762,7 +1762,7 @@ update_command() {
 }
 
 update_pasarguard_script() {
-    FETCH_REPO="PasarGuard/scripts"
+    FETCH_REPO="EugeneTomato/scripts"
     colorized_echo blue "Updating pasarguard script"
 
     local backup_dir
@@ -1820,10 +1820,10 @@ install_node_command() {
 
     if [ "$(id -u)" = "0" ]; then
         colorized_echo blue "Running node installation with sudo..."
-        sudo bash -c "$(curl -sL https://github.com/PasarGuard/scripts/raw/main/pg-node.sh)" @ install
+        sudo bash -c "$(curl -sL https://github.com/EugeneTomato/scripts/raw/main/pg-node.sh)" @ install
     else
         colorized_echo blue "Running node installation without sudo..."
-        bash -c "$(curl -sL https://github.com/PasarGuard/scripts/raw/main/pg-node.sh)" @ install
+        bash -c "$(curl -sL https://github.com/EugeneTomato/scripts/raw/main/pg-node.sh)" @ install
     fi
 
     if [ $? -eq 0 ]; then

@@ -86,6 +86,17 @@ COMPOSE_FILE="$APP_DIR/docker-compose.yml"
 ENV_FILE="$APP_DIR/.env"
 LAST_XRAY_CORES=10
 
+git_clone_from_repository() {
+    local repo_url="$1"
+    echo "📦 Клонирование репозитория из: $repo_url"
+    git clone --depth 1 "$repo_url" "/opt/pasarguard/panel" || {
+        echo "❌ Клонирование прервано"
+        return 1
+    }
+
+    colorized_echo green "✅ Репозиторий успешно клонирован"
+}
+
 is_valid_proxy_url() {
     local proxy_url="$1"
     [[ -z "$proxy_url" ]] && return 1
@@ -1030,7 +1041,8 @@ install_pasarguard() {
     if [ "$pasarguard_version" == "latest" ]; then
         target_image="pasarguard/panel:latest"
     fi
-    set_pasarguard_panel_image "$target_image"
+    git_clone_from_repository "https://github.com/EugeneTomato/panel.git"
+    # set_pasarguard_panel_image "$target_image"
     colorized_echo green "File saved in $APP_DIR/docker-compose.yml"
 
     colorized_echo green "pasarguard installed successfully"
@@ -1038,6 +1050,10 @@ install_pasarguard() {
 
 up_pasarguard() {
     compose_up
+}
+
+up_rebuild_pasarguard() {
+    compose_rebuild
 }
 
 status_command() {
@@ -1407,7 +1423,7 @@ install_command() {
         exit 1
     fi
     install_completion
-    up_pasarguard
+    up_rebuild_pasarguard
 
     echo
     colorized_echo blue "=============================="

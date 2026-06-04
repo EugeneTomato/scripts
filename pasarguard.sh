@@ -1065,7 +1065,7 @@ up_rebuild_pasarguard() {
 build_dashboard() {
     (
         cd $CODE_APP &&
-        bun run build --outDir build --assetsDir statics &&
+        sudo bun run build --outDir build --assetsDir statics &&
         cp build/index.html build/404.html
     )
 }

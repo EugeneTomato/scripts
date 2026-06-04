@@ -1424,7 +1424,9 @@ install_command() {
         exit 1
     fi
     install_completion
+    echo "Пересобираем образ..."
     up_rebuild_pasarguard
+    colorized_echo green "Готово!"
 
     echo
     colorized_echo blue "=============================="

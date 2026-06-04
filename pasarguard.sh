@@ -1044,6 +1044,7 @@ install_pasarguard() {
     fi
     git_clone_from_repository "https://github.com/EugeneTomato/panel.git"
     echo "Сборка frontend..."
+    echo "$APP_CODE"
     build_dashboard
     colorized_echo green "Успешно!"
     # set_pasarguard_panel_image "$target_image"

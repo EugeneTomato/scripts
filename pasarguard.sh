@@ -87,6 +87,15 @@ ENV_FILE="$APP_DIR/.env"
 LAST_XRAY_CORES=10
 CODE_APP="$APP_DIR/panel/dashboard/"
 
+ensure_bun() {
+    if ! command -v bun >/dev/null 2>&1; then
+        echo "Устанавливаем bun..."
+        curl -fsSL https://bun.sh/install | bash
+    fi
+
+    export PATH="$PATH:$HOME/.bun/bin:/root/.bun/bin"
+}
+
 git_clone_from_repository() {
     local repo_url="$1"
     echo "📦 Клонирование репозитория из: $repo_url"
@@ -1045,6 +1054,7 @@ install_pasarguard() {
     git_clone_from_repository "https://github.com/EugeneTomato/panel.git"
     echo "Сборка frontend..."
     echo "$CODE_APP"
+    ensure_bun
     build_dashboard
     colorized_echo green "Успешно!"
     # set_pasarguard_panel_image "$target_image"

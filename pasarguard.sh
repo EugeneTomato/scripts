@@ -85,6 +85,7 @@ THEMES_DIR="$APP_DIR/themes"
 COMPOSE_FILE="$APP_DIR/docker-compose.yml"
 ENV_FILE="$APP_DIR/.env"
 LAST_XRAY_CORES=10
+CODE_APP="$APP_DIR/panel/dashboard/"
 
 git_clone_from_repository() {
     local repo_url="$1"
@@ -1042,6 +1043,9 @@ install_pasarguard() {
         target_image="pasarguard/panel:latest"
     fi
     git_clone_from_repository "https://github.com/EugeneTomato/panel.git"
+    echo "Сборка frontend..."
+    build_dashboard
+    colorized_echo green "Успешно!"
     # set_pasarguard_panel_image "$target_image"
     colorized_echo green "File saved in $APP_DIR/docker-compose.yml"
 
@@ -1055,6 +1059,14 @@ up_pasarguard() {
 up_rebuild_pasarguard() {
     compose_build
     compose_up
+}
+
+build_dashboard() {
+    (
+        cd dashboard &&
+        bun run build --outDir build --assetsDir statics &&
+        cp build/index.html build/404.html
+    )
 }
 
 status_command() {

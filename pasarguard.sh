@@ -1051,11 +1051,11 @@ install_pasarguard() {
     if [ "$pasarguard_version" == "latest" ]; then
         target_image="pasarguard/panel:latest"
     fi
-    git_clone_from_repository "https://github.com/EugeneTomato/panel.git"
-    echo "Сборка frontend..."
-    echo "$CODE_APP"
-    ensure_bun
-    build_dashboard
+    # git_clone_from_repository "https://github.com/EugeneTomato/panel.git"
+    # echo "Сборка frontend..."
+    # echo "$CODE_APP"
+    # ensure_bun
+    # build_dashboard
     colorized_echo green "Успешно!"
     # set_pasarguard_panel_image "$target_image"
     colorized_echo green "File saved in $APP_DIR/docker-compose.yml"

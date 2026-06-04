@@ -1053,7 +1053,8 @@ up_pasarguard() {
 }
 
 up_rebuild_pasarguard() {
-    compose_rebuild
+    compose_build
+    compose_up
 }
 
 status_command() {

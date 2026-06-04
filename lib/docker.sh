@@ -20,8 +20,8 @@ compose_up() {
     $COMPOSE -f "$COMPOSE_FILE" -p "$APP_NAME" up -d --remove-orphans
 }
 
-compose_rebuild() {
-    $COMPOSE -f "$COMPOSE_FILE" -p "$APP_NAME" up -d --build
+compose_build() {
+    $COMPOSE -f "$COMPOSE_FILE" -p "$APP_NAME" build --no-cache
 }
 
 compose_down() {

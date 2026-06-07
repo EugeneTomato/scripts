@@ -1793,12 +1793,9 @@ update_command() {
     install_completion
     colorized_echo blue "Rebuilding image..."
     down_pasarguard
-    compose_build
-    # update_pasarguard
-
     colorized_echo blue "Restarting pasarguard's services"
-    up_pasarguard
-
+    up_rebuild_pasarguard
+    # update_pasarguard
     colorized_echo blue "pasarguard updated successfully"
 }
 

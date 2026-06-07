@@ -1797,10 +1797,11 @@ update_command() {
     uninstall_completion
     install_completion
     colorized_echo blue "Pulling latest version"
-    update_pasarguard
+    down_pasarguard
+    compose_build
+    # update_pasarguard
 
     colorized_echo blue "Restarting pasarguard's services"
-    down_pasarguard
     up_pasarguard
 
     colorized_echo blue "pasarguard updated successfully"
